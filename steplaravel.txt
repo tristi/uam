@@ -1,0 +1,19 @@
+composer create-project --prefer-dist laravel/laravel laravel-admilte
+cd laravel-adminlte
+composer require laravel/ui
+php artisan bootstrap ui --auth
+npm install
+npm run dev
+npm install admin-lte@^3.2 --save
+edit bootstrap.js => add row 5 require('admin-lte')
+edit app.scss => add row //AdminLTE @import '~admin-lte/dist/css/adminlte.css'
+
+permission spatie
+composer require spatie/laravel-permission
+composer require laravelcollective/html
+add config.app -> Spatie/Permission/PermissionServiceProvider::class
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+https://youtu.be/H38eqNcQLNk
+
+https://youtu.be/Krc-4MIHFlk
