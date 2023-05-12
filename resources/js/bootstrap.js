@@ -2,7 +2,7 @@ window._ = require('lodash');
 
 try {
     require('bootstrap');
-    require('admin-lte')
+    require('admin-lte');
 } catch (e) {}
 
 /**

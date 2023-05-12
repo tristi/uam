@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UAM\RoleController;
+use App\Http\Controllers\UAM\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.starter');
-});
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
 Auth::routes();
 
@@ -27,8 +25,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware'=>['auth']],function(){
     Route::resource('users', UserController::class);
     Route::resource('roles',RoleController::class);
-    Route::resource('perusahaan',PerusahaanController::class);
-    Route::any ('search-user','UserController@searchUser')->name('users.search');
+    Route::get('dt/roles',[RoleController::class,'getListDT'])->name('roles.listdt');
+    Route::any ('search-user','App\Http\Controllers\uam\UserController@searchUser')->name('users.search');
 
 
 });

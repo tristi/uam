@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\UAM;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use DataTables;
 
 class RoleController extends Controller
 {
@@ -18,8 +20,10 @@ class RoleController extends Controller
     }
 
     public function index(Request $request){
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))->with('i',($request->input('page',1)-1)*5);
+
+        return view('roles.index');
+
+       // return view('roles.index',compact('roles'))->with('i',($request->input('page',1)-1)*5);
     }
 
     public function create(){
@@ -74,5 +78,19 @@ class RoleController extends Controller
     public function destroy($id){
         DB::table("roles")->where('id',$id)->delete();
         return redirect()->route('roles.index')->with('success','Role deleted successfully');
+    }
+
+    public function getListDT(Request $request){
+        if($request->ajax()){
+            $roles = Role::orderBy('id','DESC');
+        return DataTables::of($roles)
+        ->addColumn('action',function($row){
+            $action = '<a href="'.action([\App\Http\Controllers\UAM\RoleController::class,'edit'],[$row->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            $action .= '&nbsp <button data-href="'.action([\App\Http\Controllers\UAM\RoleController::class,'destroy'],[$row->id]).'" class="btn btn-xs btn-danger delete_role_button"><i class="glyphicon glyphicon-trash"></i> Hapus</button>';
+            return $action;
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+        }
     }
 }

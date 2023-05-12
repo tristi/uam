@@ -5,14 +5,39 @@ php artisan bootstrap ui --auth
 npm install
 npm run dev
 npm install admin-lte@^3.2 --save
-edit bootstrap.js => add row 5 require('admin-lte')
-edit app.scss => add row //AdminLTE @import '~admin-lte/dist/css/adminlte.css'
+edit resources/js/bootstrap.js => add row 5 require('admin-lte')
+edit package.json => dependencies "admin-lte": "3.2.0",
+edit resource/sass/app.scss => add row //AdminLTE @import '~admin-lte/dist/css/adminlte.css'
+npm run dev
+
+npm install --save @fortawesome/fontawesome-free@5.15.14
+
+edit resource/sass/app.scss =>
+    add row $fa-font-path: "../webfonts";
+    // importing core styling file
+    @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+
+    // our project needs Classic Solid, Brands, and Sharp Solid
+    @import "~@fortawesome/fontawesome-free/scss/solid.scss";
+    @import "~@fortawesome/fontawesome-free/scss/regular.scss";
+    @import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+npm install autoprefixer@10.4.5 --save-exact
+npm run dev
 
 permission spatie
 composer require spatie/laravel-permission
 composer require laravelcollective/html
 add config.app -> Spatie/Permission/PermissionServiceProvider::class
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+php artisan vendor:publish --provider="Yajra\DataTables\DataTablesServiceProvider"
+
+php artisan make:seeder PermissionTableSeeder
+
+php artisan db:seed --class=PermissionTableSeeder
+
+
 
 https://youtu.be/H38eqNcQLNk
 

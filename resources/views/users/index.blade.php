@@ -1,26 +1,12 @@
-@extends('layouts.starter')
+@extends('layouts.lte')
 <!-- Content Header (Page header) -->
-@section('content')
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Manage User</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Manage User</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
-<!-- /.content-header -->
+@push('head-script')
 
-<!-- Main content -->
-<div class="content">
-    <div class="container">
+@endpush
+@include('users.base')
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
         <form action="/search" method="POST" role="search">
             {{ csrf_field() }}
             <div class="input-group">
@@ -32,8 +18,10 @@
 				</span>
 			</div>
         </form>
+        </div>
     </div>
-    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
         @if($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{$message}}</p>
@@ -86,7 +74,7 @@
         </table>
         @endif
     </div><!-- /.container-fluid -->
-    <div class="container">
+    <div class="col-md-12">
 
         @if(isset($details))
         <table class="table table-bordered">
@@ -138,3 +126,6 @@
 </div>
 @endsection
 <!-- /.content -->
+@push('footer-script')
+
+@endpush
